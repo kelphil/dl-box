@@ -58,6 +58,7 @@ docker ps
 ```
 docker exec -it dl-box /bin/bash
 ```
+![alt text](https://github.com/kelphil/dl-box/blob/master/dlbox_bash.png "Docker Container Bash Shell")
 
 ### Stop docker container
 ```
@@ -76,6 +77,8 @@ docker rm dl-box
 ```
 Jupyter Notebook Password = 'root'
 ```
+
+![alt text](https://github.com/kelphil/dl-box/blob/master/jupyter_notebook.png "Jupyter Notebook")
 
 ### Open TensorBoard in a web browser
 
