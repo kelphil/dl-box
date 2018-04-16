@@ -78,7 +78,7 @@ docker rm dl-box
 Jupyter Notebook Password = 'root'
 ```
 
-![alt text](https://github.com/kelphil/dl-box/blob/master/jupyter_notebook.png "Jupyter Notebook")
+![alt text](https://github.com/kelphil/dl-box/blob/master/jupyter_nb.png "Jupyter Notebook")
 
 ### Open TensorBoard in a web browser
 
