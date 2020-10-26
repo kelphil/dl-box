@@ -1,5 +1,5 @@
 # Use ubuntu as base image
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 MAINTAINER Kelvin Philip <kelvinphilip@gmail.com>
 
@@ -7,40 +7,25 @@ MAINTAINER Kelvin Philip <kelvinphilip@gmail.com>
 LABEL version="1.0" \
       description="Deep Learning Env with Jupyter Notebooks" \
       date_created="13april2018" \
-      date_modified="13april2018"
+      date_modified="25oct2020"
 
 # Updating repository sources
 # Run a system update to get it up to speed
 # Then install python3 and pip3
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y sudo && \
   apt-get install -y build-essential && \
   apt-get install -y software-properties-common && \
   apt-get install -y \
-    g++ \
-    cmake \
     curl \
     git \
     htop \
     man \
     unzip \
     vim \
-    nano \
-    nedit \
-    wget \
-    doxygen \
-    emacs \
-    git \
-    inkscape \
-    lmodern \
-    pandoc \
-    python-dev \
-    texlive-fonts-extra \
-    texlive-fonts-recommended \
-    texlive-generic-recommended \
-    texlive-latex-base \
-    texlive-latex-extra \
-    texlive-xetex \
+    python2 \
     python3 \
+    python3-distutils \
     && \
   apt-get clean && \
   apt-get autoremove && \
@@ -109,7 +94,7 @@ RUN MPLBACKEND=Agg python3 -c "import matplotlib.pyplot"
 USER ${NB_USER}
 
 # Expose Ports for TensorBoard (6006), Ipython (8888)
-EXPOSE 6006 8888
+EXPOSE 8888
 
 # Start the jupyter notebook
 ENTRYPOINT ["jupyter", "notebook","--ip=*", "--allow-root"]
