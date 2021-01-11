@@ -1,46 +1,27 @@
 # Use ubuntu as base image
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 MAINTAINER Kelvin Philip <kelvinphilip@gmail.com>
 
 # Add metadata
 LABEL version="1.0" \
       description="Deep Learning Env with Jupyter Notebooks" \
-      date_created="13april2018" \
-      date_modified="13april2018"
+      date_created="13apr2018" \
+      date_modified="19oct2020"
 
 # Updating repository sources
 # Run a system update to get it up to speed
 # Then install python3 and pip3
 RUN apt-get update && apt-get install -y sudo && \
-  apt-get install -y build-essential && \
-  apt-get install -y software-properties-common && \
   apt-get install -y \
-    g++ \
-    cmake \
-    curl \
     git \
     htop \
-    man \
-    unzip \
     vim \
-    nano \
-    nedit \
     wget \
-    doxygen \
-    emacs \
-    git \
-    inkscape \
-    lmodern \
-    pandoc \
-    python-dev \
-    texlive-fonts-extra \
-    texlive-fonts-recommended \
-    texlive-generic-recommended \
-    texlive-latex-base \
-    texlive-latex-extra \
-    texlive-xetex \
+    curl \
+    python2 \
     python3 \
+    python3-pip \
     && \
   apt-get clean && \
   apt-get autoremove && \
@@ -60,17 +41,21 @@ RUN pip --no-cache-dir install \
     pyasn1
 
 # Install jupyter python3 kernel
-RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
-  python3 get-pip.py && \
-  rm get-pip.py && \
-  pip3 install jupyter && \
-  ipython3 kernelspec install-self
+# RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
+#  python3 get-pip.py && \
+#  rm get-pip.py && \
+#  pip3 install jupyter && \
+#  ipython3 kernelspec install-self
 
 # Copy the requirements file that shows installed libraries
 COPY requirements.txt /root
 
 # Install additional libraries
 RUN pip3 --no-cache-dir install --upgrade --trusted-host pypi.python.org -r root/requirements.txt
+
+# Install lib for google sheets
+RUN pip3 install gspread
+RUN pip3 install --upgrade google-api-python-client oauth2client 
 
 # Set locale
 #RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
@@ -109,7 +94,7 @@ RUN MPLBACKEND=Agg python3 -c "import matplotlib.pyplot"
 USER ${NB_USER}
 
 # Expose Ports for TensorBoard (6006), Ipython (8888)
-EXPOSE 6006 8888
+EXPOSE 8888
 
 # Start the jupyter notebook
 ENTRYPOINT ["jupyter", "notebook","--ip=*", "--allow-root"]
