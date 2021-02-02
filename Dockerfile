@@ -28,14 +28,11 @@ RUN apt-get update && apt-get install -y sudo && \
   rm -rf /var/lib/apt/lists/*
 
 # Install pip
-RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
-  python2 get-pip.py && \
-  rm get-pip.py && \
-  python2 -m pip install ipykernel && \
-  python2 -m ipykernel install --user
+RUN python3 -m pip install ipykernel && \
+  python3 -m ipykernel install --user
 
 # Add SNI support to Python
-RUN pip --no-cache-dir install \
+RUN pip3 --no-cache-dir install \
     pyopenssl \
     ndg-httpsclient \
     pyasn1
